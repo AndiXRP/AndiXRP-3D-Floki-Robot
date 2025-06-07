@@ -32,12 +32,4 @@ Robot AI Floki memiliki struktur yang proporsional dan komponen yang saling terh
 - Library Plotly untuk visualisasi 3D interaktif  
 - NumPy untuk perhitungan dan pembuatan koordinat geometris
 
----
 
-## Cara Menjalankan
-
-1. Pastikan Python 3.x sudah terpasang.  
-2. Install dependensi:  
-   ```bash
-   pip install numpy plotly
-# 3D-Floki

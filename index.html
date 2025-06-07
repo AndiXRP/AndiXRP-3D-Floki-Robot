@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Robot 3D Interaktif (Pyodide + Plotly)</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        #plot {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <h1>Robot 3D Interaktif (Pyodide + Plotly)</h1>
+    <div id="plot">Memuat...</div>
+
+    <script type="text/javascript">
+        async function main() {
+            const pyodide = await loadPyodide();
+            await pyodide.loadPackage("micropip");
+            await pyodide.runPythonAsync(`
+import micropip
+await micropip.install("plotly")
+            `);
+            const response = await fetch("main.py");
+            const code = await response.text();
+
+            // Jalankan kode Python dan dapatkan output JSON string
+            let output = await pyodide.runPythonAsync(`
+import json
+from main import build_robot_and_show
+
+build_robot_and_show()
+            `);
+
+            // Tidak perlu menangani output di JS karena plot ditampilkan langsung di Python
+
+        }
+        main();
+    </script>
+</body>
+</html>
+
